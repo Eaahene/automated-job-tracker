@@ -1,13 +1,8 @@
 
-# Automated-job-tracker
-
-This project is an automated ETL (Extract, Transform, Load) pipeline built in Python that collects job postings from multiple company job boards using the Ashby API and processes them.
-
-
-
 ## 🚀 Features
 - Extracts job listings from multiple APIs (Notion, OpenAI, Ashby, etc.)
 - Transforms raw API data into structured format
+- Sends to the frontend
 
 ## 📊 Output
 Generates structured job data including:
@@ -21,3 +16,7 @@ Generates structured job data including:
 
 And pushes it to the frontend that displays them cleanly.
 
+# to run 
+ -  fork a copy 
+ - type in terminal of the dir(it starts the backend) :" npm run start"
+ -  open the .html file in a web browser
