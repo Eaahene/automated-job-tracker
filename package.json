@@ -1,0 +1,29 @@
+{
+  "name": "job_aggregator",
+  "version": "1.0.0",
+  "description": "This project is a job aggregator that fetches job listings from various job boards and displays them on a web page. It uses Node.js and Express for the backend, and HTML/CSS/JavaScript for the frontend.",
+  "main": "./server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eaahene/automated-job-tracker.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eaahene/automated-job-tracker/issues"
+  },
+  "homepage": "https://github.com/Eaahene/automated-job-tracker#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.14"
+  }
+}

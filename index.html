@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>JobFind</title>
+</head>
+<body>
+    <header>
+        <h1>JobFind</h1>
+        <p>Welcome to JobFind!, your one-stop solution for finding the perfect job!</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Job Boards</h2>
+            <p>Select a job board to view available positions:</p>
+            <div class="job-boards">
+                <div>
+                    <input type="checkbox" id="notion" value="notion">
+                    <label for="notion">Notion</label><br>
+                </div>
+                <div>
+                    <input type="checkbox" id="Openai" value="Openai">
+                    <label for="Openai">OpenAI</label><br>
+                </div>
+                <div>
+                    <input type="checkbox" id="Ashby" value="Ashby">
+                    <label for="Ashby">Ashby</label><br>
+                </div>
+            </div>
+
+            <!-- future addition of filter feature
+
+            <h2>Filter Job Search</h2>  
+            <input placeholder="search a job position, location ..."><br>
+            <input type="radio" id = "site" value="remote" >
+            <label for="site" >Remote</label>
+            <input type="radio" id = "site"  value="onsite">
+            <label for="site">Onsite</label><br>
+
+            <label>Salary : </label>
+            <span>$0</span>
+            <input type="range">
+            <span>$100,000</span>
+            <input placeholder="salary range"><br>
+            
+            <input type="radio" id = "site" value="remote" >
+            <label for="site" >Full time</label>
+            <input type="radio" id = "site"  value="onsite">
+            <label for="site">Part-time</label><br> -->
+
+            <button id="fetchJobs">Fetch Jobs</button><hr>
+            <div id="jobResults" class="job-listing"></div>
+        </section>
+    </main>
+
+<script>
+    document.getElementById("fetchJobs").addEventListener("click", async ()=>{
+        let jobResultsDiv = document.getElementById("jobResults");
+
+        jobResultsDiv.innerHTML = "<h3>Job Results: </h3>";
+
+        let selectedBoards =[];
+        if(document.getElementById("notion").checked)
+            selectedBoards.push("Notion");
+        if(document.getElementById("Openai").checked)
+            selectedBoards.push("OpenAI");
+        if(document.getElementById("Ashby").checked)
+            selectedBoards.push("Ashby");
+
+        const fetch_response = await fetch('http://localhost:3000/jobs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ boards: selectedBoards })
+        })
+
+        const fetch_data = await fetch_response.json();
+
+        
+        
+
+        console.log(fetch_data.job_info);
+        
+        jobResultsDiv.innerHTML += "<h3>Job Results: </h3>";
+
+        let html = "";
+        
+        for (const board in fetch_data.job_info) {
+            html += "<h3>Job Results: </h3>"
+            html += "<h4>" + board + "</h4>";
+            html += "<hr>";
+            
+        
+            fetch_data.job_info[board].forEach(job=>{ 
+                let date = new Date(job.datePosted);
+                let formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                html += "<p><strong>Position:</strong> " + job.title + "</p>";
+                html += "<p><strong>Company:</strong> " + job.company + "</p>";
+                html += "<p><strong>Location:</strong> " + job.location + "</p>";
+                html += "<p><strong>Employment type</strong>:" + job.employmentType + "</p>";
+                html += "<p><strong>Workplace type</strong>:" + job.workplaceType + "</p>";
+                html += "<p><strong>Date Posted:</strong> " + formattedDate + "</p>";
+                html += "<span><a href='" + job.job_url + "' target='_blank'>View Job Site</a></span><span><a href='" + job.application_url + "' target='_blank'>Apply Now</a></span>";
+                html += "<hr>";
+            }
+            ); 
+        }
+        jobResultsDiv.innerHTML = html;
+        
+        });
+        
+    
+</script>
+</body>
+</html>

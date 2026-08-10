@@ -1,5 +1,0 @@
-requests
-pandas
-schedule
-gspread
-google-auth
